@@ -1,15 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PostsPage from './PostsPage';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Posts from './Posts';
+import Pagination from './Pagination';
+import { fetchPosts } from './actions';
+function App() {
+    const dispatch = useDispatch();
 
-const App = () => {
+    useEffect(() => {
+        dispatch(fetchPosts());
+    }, []);
+
     return (
-        <Router>
-            <Routes>
-                <Route path="/posts" element={<PostsPage />} />
-            </Routes>
-        </Router>
+        <div className="container">
+            <h1>Посты</h1>
+            <Posts />
+            <Pagination />
+        </div>
     );
-};
+}
 
 export default App;
